@@ -1,2 +1,2 @@
 # codewars
-codewars challenges!
+codewars challenges! organized by difficulty level (kyu ranking)
