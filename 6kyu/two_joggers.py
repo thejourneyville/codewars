@@ -1,3 +1,6 @@
+# determine how many laps need to be completed by both 'runners' to return to the same origin point
+# at the same time. the runners are running the exact same speed
+
 def nbr_of_laps(x, y):
     
     if x == y:
