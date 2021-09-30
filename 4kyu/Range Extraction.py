@@ -13,39 +13,57 @@ Example:
 
 solution([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20])
 # returns "-6,-3-1,3-5,7-11,14,15,17-20"
+'-3--1,2,10,15,16,18-20'
 """
-
-
 # len 20
-def range_master(d):
 
+
+def solution(d):
+
+    current = 0
+    differences = {}
+    consecutives = 0
+    new_range = ""
     output = ""
     potential = []
-    range_found = False
 
-    for current in range(len(d)):
-        after = current + 1
-        if current < len(d) - 1:
-            if abs(d[current]) - abs(d[after]) == 1:
-                if not potential:
-                    output += str(d[current])
+    for ele in d[1::]:
+        differences[d[current], ele] = abs(d[current] - ele)
+
+        if abs(d[current] - ele) == 1:
+            consecutives += 1
+            if consecutives == 1:
                 potential.append(d[current])
-            if len(potential) >= 3:
-                range_found = True
-            if abs(d[current]) - abs(d[after]) != 1 and range_found:
-                potential.append(d[current])
-                for item in potential:
-                    output += str(item)
-                potential = []
-            if abs(d[current]) - abs(d[after]) != 1:
-                output += str(d[current])
-    print(output)
+
+            elif consecutives == 2:
+                potential.clear()
+                new_range = f"{d[current - 1]}-"
+
+        else:
+            consecutives = 0
+            if new_range:
+                new_range += f"{d[current]},"
+                output += new_range
+                new_range = ""
+                potential.clear()
+            elif potential:
+                output += f"{potential[0]},{d[current]},"
+                potential.clear()
+            else:
+                output += f"{d[current]},"
+
+        current += 1
+    if new_range:
+        new_range += f"{d[current]}"
+        output += new_range
+    elif potential:
+        output += f"{potential[0]},{d[current]}"
+    else:
+        output += f"{d[current]}"
 
 
+    return output
 
 
-
-
-
-data = [-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20]
-range_master(data)
+data = [-6,-3,-2,-1,0,1,3,4,5,7,8,9,10,11,14,15,17,18,19,20]
+print(solution(data))
