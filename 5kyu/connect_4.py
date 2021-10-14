@@ -30,7 +30,7 @@ class Connect4():
 
     def __init__(self):
         self.board = [[" " for c in range (7)] for r in range (6)]
-        self.stacks = {col: 6 for col in range(7)}  # column : height of stack (6 is empty, 0 is full) 
+        self.stacks = {col: 6 for col in range(7)}  # column : height of stack (6 is empty, 0 is full)
         self.winner = False
         self.current_player = "1"
 
@@ -39,7 +39,7 @@ class Connect4():
         if self.winner:
             return "Game has finished!"
         
-        # adjusts the stack of each column and places the piece on the top of the stack
+        # adjusts the stack of each column and places the piece on the top of the stack moving from 6 to 0 (0 is a full column)
         if self.stacks[col] > 0:
             self.stacks[col] -= 1
             self.board[self.stacks[col]][col] = self.current_player
